@@ -11,4 +11,6 @@ The code seems to be valid, but after use, it fits within 1000 steps. In the tes
 <br>The loss of the verification set will also drop to 0, and the accuracy will rise to 100%.
 
 ## problem
-<br>
+Why is the model performing very well during training, but it looks bad in the prediction.py?
+<br>I need help, Where is the problem?
+<br>T_T..
