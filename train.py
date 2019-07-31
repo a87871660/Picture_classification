@@ -4,21 +4,23 @@ import tensorflow as tf
 from pre import get_file, get_batch, valuation_batch
 from nw import deep_CNN, losses, trainning, evaluation
 
-ratio = 0.2
+#ratio = 0.2
 n_class = 5
-image_h = 160
-image_w = 120
-target_height = 200
-target_width = 160
-batch_size = 24
+image_h = 260
+image_w = 220
+target_height = 300
+target_width = 260
+batch_size = 16
 capacity = 256
 max_step = 200000
-learning_rate = 0.0001
-train_dir = 'E:\\DeepLearn\\picture_mosaic'
+learning_rate = 0.001
+train_dir = 'E:\\DeepLearn\\picture_train'
+valuation_dir = 'E:\\DeepLearn\\picture_valuation'
 logs_train_dir = 'E:\\DeepLearn\\Classify_picture\\self\\model\\train\\'
 logs_valuation_dir = 'E:\\DeepLearn\\Classify_picture\\self\\model\\valuation\\'
 
-train, train_label, valuation, valuation_label = get_file(train_dir, ratio)
+train, train_label = get_file(train_dir)
+valuation, valuation_label = get_file(valuation_dir)
 train_batch, train_label_batch = get_batch(train, train_label, image_h, image_w, target_height, target_width, batch_size, capacity)
 val_image_batch, val_label_batch = valuation_batch(valuation, valuation_label, image_h, image_w, target_height, target_width, batch_size, capacity)
 
@@ -52,7 +54,6 @@ try:
             break
 
         _, summary_training, tra_loss, tra_acc= sess.run([train_op, summary_op, train_loss, train_acc], feed_dict={is_training: True})
-        #summary_valuation, val_loss, val_acc = sess.run([summary_op, train_loss, train_acc], feed_dict={is_training: False})
 
         if step % 100 == 0:
             summary_valuation, val_loss, val_acc = sess.run([summary_op, train_loss, train_acc], feed_dict={is_training: False})
@@ -60,7 +61,6 @@ try:
             #print('Step %d, train loss = %.3f, train accuracy = %.2f%%' % (step, tra_loss, tra_acc))
             #print('The valuation loss = %.3f, valuation accuracy = %.2f%%' % (val_loss, val_acc))
             #print('The learning rate is %s' % (_[1]))
-            #print('-----------------------------------------------------')
             checkpoint_path = os.path.join(logs_train_dir, 'model.ckpt')
             saver.save(sess, checkpoint_path, global_step=step)
             train_writer.add_summary(summary_training, step)
