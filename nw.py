@@ -83,7 +83,7 @@ def losses(logits, lb_y):
 def trainning(loss, learning_rate):
     with tf.name_scope('optimizer'):
         global_step = tf.Variable(0, name='global_step', trainable=False)
-        learning_rate = tf.train.exponential_decay(learning_rate, global_step, decay_steps=5000, decay_rate=0.9,
+        learning_rate = tf.train.exponential_decay(learning_rate, global_step, decay_steps=1000, decay_rate=0.9,
                                                    staircase=True, name='learning_rate')
         optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
         train_op = optimizer.minimize(loss, global_step=global_step)
