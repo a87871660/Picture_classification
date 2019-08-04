@@ -54,6 +54,7 @@ try:
 
         if step % 100 == 0:
             summary_valuation, val_loss, val_acc = sess.run([summary_op, train_loss, train_acc], feed_dict={is_training: False})
+            print('Step %d, train loss = %.3f, valuation loss = %.3f, train accuracy = %.2f%%, valuation accuracy = %.2f%%, learning rate is %f' % (step, tra_loss, val_loss, tra_acc * 100.0, val_acc * 100.0, _[1]))
             checkpoint_path = os.path.join(logs_train_dir, 'model.ckpt')
             saver.save(sess, checkpoint_path, global_step=step)
             train_writer.add_summary(summary_training, step)
