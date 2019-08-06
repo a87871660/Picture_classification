@@ -16,7 +16,7 @@ label_L = []
 Y = []
 label_Y = []
 
-def get_file (file_dir):
+def get_file (file_dir, ratio):
     for file_1 in os.listdir(file_dir + '\\C'):
         C.append(file_dir + '\\C' + '\\' + file_1)
         label_C.append(0)
